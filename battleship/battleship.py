@@ -18,7 +18,7 @@ directions_to_moves = {
     "west": "W"
 }
 SHIP_COLOR = "cyan"
-CANON_COLOR = "grey"
+CANON_COLOR = "cyan"
 ALIVE_COLOR = "green"
 DEAD_COLOR = "red"
 SMOKE_COLOR = "white"
@@ -32,7 +32,7 @@ def convert_num_to_string(num, max_num_len):
     if cur_num < 100:
         num_string += " "
     else:
-        num_string += "{}".format(int(cur_num/100))
+        num_string += "{}".format(int(cur_num / 100))
         cur_num = cur_num % 100
     if cur_num < 10:
         if num >= 100:
@@ -40,7 +40,7 @@ def convert_num_to_string(num, max_num_len):
         else:
             num_string += " "
     else:
-        num_string += "{}".format(int(cur_num/10))
+        num_string += "{}".format(int(cur_num / 10))
         cur_num = cur_num % 10
     num_string += "{}".format(cur_num)
     return num_string
@@ -92,41 +92,63 @@ class Board:
         if "north" not in self.hostile_ship_directions:
             north_letter_color = DEAD_COLOR
         ## Line 0
-        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + "".join([" " for i in range(24)]) + "N" + "\n"
+        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                          SHIP_COLOR) + "".join(
+            [" " for i in range(24)]) + "N" + "\n"
         ## Line 1
-        self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("CTR:  ", north_letter_color) +\
-                              colored(self.ships["north"].country, north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join([" " for i in range(23)]) + "|" + "\n"
+        self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("CTR:  ", north_letter_color) + \
+                              colored(self.ships["north"].country, north_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
+            [" " for i in range(23)]) + "|" + "\n"
         ## Line 2
-        self.render_string += "".join([" " for i in range(44)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("CAP:  ", north_letter_color) +\
-                              colored(self.ships["north"].captain, north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - len(self.ships["north"].captain) - 1)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join([" " for i in range(19)]) + "W --+-- E"+ "\n"
+        self.render_string += "".join([" " for i in range(44)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP:  ", north_letter_color) + \
+                              colored(self.ships["north"].captain, north_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["north"].captain) - 1)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
+            [" " for i in range(19)]) + "W --+-- E" + "\n"
         ## Line 3
-        self.render_string += "".join([" " for i in range(43)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ", north_letter_color) +\
-                              colored(convert_num_to_string(self.ships["north"].people, MAX_NUM_LEN), north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join([" " for i in range(23)]) + "|" + "\n"
+        self.render_string += "".join([" " for i in range(43)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("PPL: ", north_letter_color) + \
+                              colored(convert_num_to_string(self.ships["north"].people, MAX_NUM_LEN),
+                                      north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
+            [" " for i in range(23)]) + "|" + "\n"
         ## Line 4
-        self.render_string += "".join([" " for i in range(43)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ", north_letter_color) +\
-                              colored(convert_num_to_string(self.ships["north"].hitpoints, MAX_NUM_LEN), north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join([" " for i in range(23)]) + "S" + "\n"
+        self.render_string += "".join([" " for i in range(43)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("HTP: ", north_letter_color) + \
+                              colored(convert_num_to_string(self.ships["north"].hitpoints, MAX_NUM_LEN),
+                                      north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
+            [" " for i in range(23)]) + "S" + "\n"
         ## Line 5
-        self.render_string += "".join([" " for i in range(44)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("ATT: ", north_letter_color) +\
-                              colored(convert_num_to_string(self.ships["north"].attack, MAX_NUM_LEN), north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(44)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("ATT: ", north_letter_color) + \
+                              colored(convert_num_to_string(self.ships["north"].attack, MAX_NUM_LEN),
+                                      north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 6
-        self.render_string += "".join([" " for i in range(45)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("TTH: ", north_letter_color) +\
-                              colored(convert_num_to_string(self.ships["north"].time_to_hit, MAX_NUM_LEN), north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(45)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("TTH: ", north_letter_color) + \
+                              colored(convert_num_to_string(self.ships["north"].time_to_hit, MAX_NUM_LEN),
+                                      north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 7
-        self.render_string += "".join([" " for i in range(47)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
+        self.render_string += "".join([" " for i in range(47)]) + "".join(
+            [canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
         ## Line 8, 9
         if attack and attack.north:
             self.render_string += colored("".join(
-                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n"
+                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\",
+                                          SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
         if attack and attack.center == "N":
-            self.render_string += colored("".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/", SMOKE_COLOR) + "\n"
+            self.render_string += colored(
+                "".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/",
+                SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
 
@@ -141,18 +163,26 @@ class Board:
         if self.ships["center"].hitpoints == "XXX":
             center_letter_color = DEAD_COLOR
         ## Line 10
-        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR)
+        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                         SHIP_COLOR)
         self.render_string += "".join([" " for i in range(9)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)])
-        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + " \n"
+        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                         SHIP_COLOR) + " \n"
         ## Line 11
-        self.render_string += "".join([" " for i in range(2)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("CTR:  ", west_letter_color) +\
-                              colored(self.ships["west"].country, west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+        self.render_string += "".join([" " for i in range(2)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("CTR:  ", west_letter_color) + \
+                              colored(self.ships["west"].country, west_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(6)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("CTR:  ", center_letter_color) + \
-                              colored(self.ships["center"].country, center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+                              "".join([" " for i in range(6)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("CTR:  ", center_letter_color) + \
+                              colored(self.ships["center"].country, center_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(6)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("CTR:  ", east_letter_color) + \
-                              colored(self.ships["east"].country, east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+                              "".join([" " for i in range(6)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("CTR:  ", east_letter_color) + \
+                              colored(self.ships["east"].country, east_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 12
         west_east = " "
@@ -167,68 +197,110 @@ class Board:
         center_east = " "
         if attack and attack.center == "E":
             center_east = "<"
-        self.render_string += "".join([" " for i in range(1)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("CAP:  ", west_letter_color) +\
-                              colored(self.ships["west"].captain, west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - len(self.ships["west"].captain) - 1)]) + \
-                              "".join([" " for i in range(10)]) + colored("=", CANON_COLOR) + colored(west_east, SMOKE_COLOR) + \
-                              "".join([" " for i in range(3)]) + colored(center_west, SMOKE_COLOR) + colored("=", CANON_COLOR) + "".join([" " for i in range(13)]) + colored("CAP:  ", center_letter_color) +\
-                              colored(self.ships["center"].captain, center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - len(self.ships["center"].captain) - 1)]) + \
-                              "".join([" " for i in range(10)]) + colored("=", CANON_COLOR) + colored(center_east, SMOKE_COLOR) +\
-                              "".join([" " for i in range(3)]) + colored(east_west, SMOKE_COLOR) + colored("=", CANON_COLOR) + "".join([" " for i in range(13)]) + colored("CAP:  ", east_letter_color) + \
-                              colored(self.ships["east"].captain, east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - len(self.ships["east"].captain) - 1)]) + \
-                              "".join([" " for i in range(11)]) + "|\n"
+        self.render_string += "".join([" " for i in range(1)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP:  ", west_letter_color) + \
+                              colored(self.ships["west"].captain, west_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["west"].captain) - 1)]) + \
+                              "".join([" " for i in range(10)]) + colored("=", CANON_COLOR) + colored(west_east,
+                                                                                                      SMOKE_COLOR) + \
+                              "".join([" " for i in range(3)]) + colored(center_west, SMOKE_COLOR) + colored("=",
+                                                                                                             CANON_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP:  ", center_letter_color) + \
+                              colored(self.ships["center"].captain, center_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["center"].captain) - 1)]) + \
+                              "".join([" " for i in range(10)]) + colored("=", CANON_COLOR) + colored(center_east,
+                                                                                                      SMOKE_COLOR) + \
+                              "".join([" " for i in range(3)]) + colored(east_west, SMOKE_COLOR) + colored("=",
+                                                                                                           CANON_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP:  ", east_letter_color) + \
+                              colored(self.ships["east"].captain, east_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["east"].captain) - 1)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 13
-        self.render_string += colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ", west_letter_color) +\
-                              colored(convert_num_to_string(self.ships["west"].people, MAX_NUM_LEN), west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ",
+                                                                                                     west_letter_color) + \
+                              colored(convert_num_to_string(self.ships["west"].people, MAX_NUM_LEN),
+                                      west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(4)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ", center_letter_color) +\
-                              colored(convert_num_to_string(self.ships["center"].people, MAX_NUM_LEN), center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(4)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("PPL: ", center_letter_color) + \
+                              colored(convert_num_to_string(self.ships["center"].people, MAX_NUM_LEN),
+                                      center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(4)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ", east_letter_color) +\
-                              colored(convert_num_to_string(self.ships["east"].people, MAX_NUM_LEN), east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(4)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("PPL: ", east_letter_color) + \
+                              colored(convert_num_to_string(self.ships["east"].people, MAX_NUM_LEN),
+                                      east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 14
-        self.render_string += colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ", west_letter_color) +\
-                              colored(convert_num_to_string(self.ships["west"].hitpoints, MAX_NUM_LEN), west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ",
+                                                                                                      west_letter_color) + \
+                              colored(convert_num_to_string(self.ships["west"].hitpoints, MAX_NUM_LEN),
+                                      west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(4)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ", center_letter_color) +\
-                              colored(convert_num_to_string(self.ships["center"].hitpoints, MAX_NUM_LEN), center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(4)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("HTP: ", center_letter_color) + \
+                              colored(convert_num_to_string(self.ships["center"].hitpoints, MAX_NUM_LEN),
+                                      center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(4)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ", east_letter_color) +\
-                              colored(convert_num_to_string(self.ships["east"].hitpoints, MAX_NUM_LEN), east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(4)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("HTP: ", east_letter_color) + \
+                              colored(convert_num_to_string(self.ships["east"].hitpoints, MAX_NUM_LEN),
+                                      east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 15
-        self.render_string += "".join([" " for i in range(1)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("ATT: ", west_letter_color) +\
-                              colored(convert_num_to_string(self.ships["west"].attack, MAX_NUM_LEN), west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("=", CANON_COLOR) + colored(west_east, SMOKE_COLOR) + \
-                              "".join([" " for i in range(3)]) + colored(center_west, SMOKE_COLOR) + colored("=", CANON_COLOR) + "".join([" " for i in range(13)]) + colored("ATT: ", center_letter_color) +\
-                              colored(convert_num_to_string(self.ships["center"].attack, MAX_NUM_LEN), center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("=", CANON_COLOR) + colored(center_east, SMOKE_COLOR) +\
-                              "".join([" " for i in range(3)]) + colored(east_west, SMOKE_COLOR) + colored("=", CANON_COLOR) + "".join([" " for i in range(13)]) + colored("ATT: ", east_letter_color) +\
-                              colored(convert_num_to_string(self.ships["east"].attack, MAX_NUM_LEN), east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(1)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("ATT: ", west_letter_color) + \
+                              colored(convert_num_to_string(self.ships["west"].attack, MAX_NUM_LEN),
+                                      west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("=", CANON_COLOR) + colored(west_east,
+                                                                                                      SMOKE_COLOR) + \
+                              "".join([" " for i in range(3)]) + colored(center_west, SMOKE_COLOR) + colored("=",
+                                                                                                             CANON_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("ATT: ", center_letter_color) + \
+                              colored(convert_num_to_string(self.ships["center"].attack, MAX_NUM_LEN),
+                                      center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("=", CANON_COLOR) + colored(center_east,
+                                                                                                      SMOKE_COLOR) + \
+                              "".join([" " for i in range(3)]) + colored(east_west, SMOKE_COLOR) + colored("=",
+                                                                                                           CANON_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("ATT: ", east_letter_color) + \
+                              colored(convert_num_to_string(self.ships["east"].attack, MAX_NUM_LEN),
+                                      east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 16
-        self.render_string += "".join([" " for i in range(2)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("TTH: ", west_letter_color) +\
-                              colored(convert_num_to_string(self.ships["west"].time_to_hit, MAX_NUM_LEN), west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(2)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("TTH: ", west_letter_color) + \
+                              colored(convert_num_to_string(self.ships["west"].time_to_hit, MAX_NUM_LEN),
+                                      west_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(6)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("TTH: ", center_letter_color) + \
-                              colored(convert_num_to_string(self.ships["center"].time_to_hit, MAX_NUM_LEN), center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(6)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("TTH: ", center_letter_color) + \
+                              colored(convert_num_to_string(self.ships["center"].time_to_hit, MAX_NUM_LEN),
+                                      center_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + \
-                              "".join([" " for i in range(6)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("TTH: ", east_letter_color) +\
-                              colored(convert_num_to_string(self.ships["east"].time_to_hit, MAX_NUM_LEN), east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+                              "".join([" " for i in range(6)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("TTH: ", east_letter_color) + \
+                              colored(convert_num_to_string(self.ships["east"].time_to_hit, MAX_NUM_LEN),
+                                      east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 17
-        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR)
+        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                         SHIP_COLOR)
         self.render_string += "".join([" " for i in range(9)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)])
-        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + " \n"
+        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                         SHIP_COLOR) + " \n"
         ## Line 18, 19
         if attack and attack.center == "S":
             self.render_string += colored("".join(
-                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n"
+                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\",
+                                          SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
         if attack and attack.south:
             self.render_string += colored("".join(
-                [" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/", SMOKE_COLOR) + "\n"
+                [" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/",
+                                          SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
 
@@ -237,34 +309,47 @@ class Board:
         if "south" not in self.hostile_ship_directions:
             south_letter_color = DEAD_COLOR
         ## Line 20
-        self.render_string += "".join([" " for i in range(47)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
+        self.render_string += "".join([" " for i in range(47)]) + "".join(
+            [canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
         ## Line 21
-        self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("CTR:  ", south_letter_color) +\
-                              colored(self.ships["south"].country, south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+        self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("CTR:  ", south_letter_color) + \
+                              colored(self.ships["south"].country, south_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 22
-        self.render_string += "".join([" " for i in range(44)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("CAP:  ", south_letter_color) +\
-                              colored(self.ships["south"].captain, south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - len(self.ships["south"].captain) - 1)]) + \
+        self.render_string += "".join([" " for i in range(44)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP:  ", south_letter_color) + \
+                              colored(self.ships["south"].captain, south_letter_color) + "".join(
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["south"].captain) - 1)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 23
-        self.render_string += "".join([" " for i in range(43)]) + colored("/", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("PPL: ", south_letter_color) +\
-                              colored(convert_num_to_string(self.ships["south"].people, MAX_NUM_LEN), south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(43)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("PPL: ", south_letter_color) + \
+                              colored(convert_num_to_string(self.ships["south"].people, MAX_NUM_LEN),
+                                      south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 24
-        self.render_string += "".join([" " for i in range(43)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(14)]) + colored("HTP: ", south_letter_color) +\
-                              colored(convert_num_to_string(self.ships["south"].hitpoints, MAX_NUM_LEN), south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(43)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("HTP: ", south_letter_color) + \
+                              colored(convert_num_to_string(self.ships["south"].hitpoints, MAX_NUM_LEN),
+                                      south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 25
-        self.render_string += "".join([" " for i in range(44)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(13)]) + colored("ATT: ", south_letter_color) +\
-                              colored(convert_num_to_string(self.ships["south"].attack, MAX_NUM_LEN), south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(44)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("ATT: ", south_letter_color) + \
+                              colored(convert_num_to_string(self.ships["south"].attack, MAX_NUM_LEN),
+                                      south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 26
-        self.render_string += "".join([" " for i in range(45)]) + colored("\\", SHIP_COLOR) + "".join([" " for i in range(12)]) + colored("TTH: ", south_letter_color) +\
-                              colored(convert_num_to_string(self.ships["south"].time_to_hit, MAX_NUM_LEN), south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
+        self.render_string += "".join([" " for i in range(45)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("TTH: ", south_letter_color) + \
+                              colored(convert_num_to_string(self.ships["south"].time_to_hit, MAX_NUM_LEN),
+                                      south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 27
-        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + "\n"
-
+        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
+                                                                          SHIP_COLOR) + "\n"
 
 
 class Ship:
@@ -313,7 +398,7 @@ def win_string():
                                                       |
                                                       |
                                                       |
-                                                      
+
                                                             ______
                                                        _.-':::::::`.
                                                        \\::::::::::::`.-._
@@ -330,15 +415,15 @@ def win_string():
                                                           \\.:\\ ::_:_:_`-','  `-:|
                                                            `:\\\\|        :
                                                               )`__...---'
-                                                              
-                                                              
+
+
     """
 
 
 def die_string():
     return """
-    
-    
+
+
                                                             _.--'''''''-.
                                                           .-'            '.
                                                         .'                 '.
@@ -363,10 +448,10 @@ def die_string():
                                                     .--.-'`  _.-'`  `'-._  `'-.--.
                                                    (       .'            '.       )
                                                     `,  _.'                '._  ,'
-                                                    
-                                                    
+
+
     """
-    
+
 
 def initialize_board():
     # initialize board
@@ -414,9 +499,9 @@ def initialize_board():
         captain="Barbosa",
         people=60,
         hitpoints=100,
-        attack=10,
-        time_to_hit=3,
-        cooldown_period=3
+        attack=50,
+        time_to_hit=1,
+        cooldown_period=1
     )
 
     return board
@@ -500,7 +585,6 @@ def main():
                 board.ships["center"].attack = "XXX"
                 board.ships["center"].time_to_hit = "XXX"
 
-
         # render new state
         board.update_render_string()
         os.system("clear")
@@ -527,5 +611,5 @@ def main():
             print(board.render_string)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

@@ -80,62 +80,61 @@ class Board:
         if "north" not in self.hostile_ship_directions:
             north_letter_color = DEAD_COLOR
         ## Line 0
-        self.render_string += "".join([" " for i in range(47)]) + colored(
+        self.render_string += "".join([" " for i in range(80)]) + colored(
             "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + "".join(
             [" " for i in range(24)]) + "N" + "\n"
         ## Line 1
-        self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join(
-            [" " for i in range(12)]) + colored("CTR:  ", north_letter_color) + \
-                              colored(self.ships["north"].country, north_letter_color) + "".join(
-            [" " for i in range(MAX_NAME_LEN - COUNTRY_LEN)]) + \
+        self.render_string += "".join([" " for i in range(78)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("     ", north_letter_color) + \
+                              "".join(
+            [" " for i in range(MAX_NAME_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
             [" " for i in range(23)]) + "|" + "\n"
         ## Line 2
-        self.render_string += "".join([" " for i in range(44)]) + colored("/", SHIP_COLOR) + "".join(
-            [" " for i in range(13)]) + colored("CAP:  ", north_letter_color) + \
+        self.render_string += "".join([" " for i in range(77)]) + colored("/", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("CAP: ", north_letter_color) + \
                               colored(self.ships["north"].captain, north_letter_color) + "".join(
-            [" " for i in range(MAX_NAME_LEN - len(self.ships["north"].captain) - 1)]) + \
+            [" " for i in range(MAX_NAME_LEN - len(self.ships["north"].captain))]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
             [" " for i in range(19)]) + "W --+-- E" + "\n"
         ## Line 3
-        self.render_string += "".join([" " for i in range(43)]) + colored("/", SHIP_COLOR) + "".join(
-            [" " for i in range(14)]) + colored("PPL: ", north_letter_color) + \
-                              colored(convert_num_to_string(self.ships["north"].people, MAX_NUM_LEN),
-                                      north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
-            [" " for i in range(23)]) + "|" + "\n"
-        ## Line 4
-        self.render_string += "".join([" " for i in range(43)]) + colored("\\", SHIP_COLOR) + "".join(
+        self.render_string += "".join([" " for i in range(76)]) + colored("/", SHIP_COLOR) + "".join(
             [" " for i in range(14)]) + colored("HTP: ", north_letter_color) + \
                               colored(convert_num_to_string(self.ships["north"].hitpoints, MAX_NUM_LEN),
                                       north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
-            [" " for i in range(23)]) + "S" + "\n"
-        ## Line 5
-        self.render_string += "".join([" " for i in range(44)]) + colored("\\", SHIP_COLOR) + "".join(
-            [" " for i in range(13)]) + colored("ATT: ", north_letter_color) + \
+            [" " for i in range(23)]) + "|" + "\n"
+        ## Line 4
+        self.render_string += "".join([" " for i in range(76)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(14)]) + colored("ATT: ", north_letter_color) + \
                               colored(convert_num_to_string(self.ships["north"].attack, MAX_NUM_LEN),
                                       north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
-                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
-        ## Line 6
-        self.render_string += "".join([" " for i in range(45)]) + colored("\\", SHIP_COLOR) + "".join(
-            [" " for i in range(12)]) + colored("TTH: ", north_letter_color) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "".join(
+            [" " for i in range(23)]) + "S" + "\n"
+        ## Line 5
+        self.render_string += "".join([" " for i in range(77)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(13)]) + colored("TTH: ", north_letter_color) + \
                               colored(convert_num_to_string(self.ships["north"].time_to_hit, MAX_NUM_LEN),
                                       north_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
+        ## Line 6
+        self.render_string += "".join([" " for i in range(78)]) + colored("\\", SHIP_COLOR) + "".join(
+            [" " for i in range(12)]) + colored("     ", north_letter_color) + \
+                              "".join([" " for i in range(MAX_NAME_LEN)]) + \
+                              "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 7
-        self.render_string += "".join([" " for i in range(47)]) + "".join(
+        self.render_string += "".join([" " for i in range(80)]) + "".join(
             [canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
         ## Line 8, 9
         if attack and attack.north:
             self.render_string += colored(
-                "".join([" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" +
-                "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n"
+                "".join([" " for i in range(84)]) + "/\\" + "  /\\" + "  /\\" +
+                "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n\n"
         else:
-            self.render_string += "\n"
+            self.render_string += "\n\n"
         if attack and attack.center == "N":
             self.render_string += colored(
-                "".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" +
+                "".join([" " for i in range(84)]) + "\\/" + "  \\/" + "  \\/" +
                 "  \\/" + "  \\/" + "  \\/" + "  \\/", SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"

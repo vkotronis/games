@@ -6,17 +6,11 @@ import time
 # https://pypi.org/project/termcolor/
 # https://textart.io/art/tag/pirate/1
 
-
 SHIP_UPPER = 34
 MAX_NAME_LEN = 7
 COUNTRY_LEN = 3
 MAX_NUM_LEN = 3
-directions_to_moves = {
-    "north": "N",
-    "south": "S",
-    "east": "E",
-    "west": "W"
-}
+directions_to_moves = {"north": "N", "south": "S", "east": "E", "west": "W"}
 SHIP_COLOR = "cyan"
 CANON_COLOR = "cyan"
 ALIVE_COLOR = "green"
@@ -53,32 +47,26 @@ def canon_or_board(index, ship_color=SHIP_COLOR, canon_color=CANON_COLOR):
 
 
 class Board:
-    def __init__(
-            self,
-            length=126,
-            width=30
-    ):
+    def __init__(self, length=126, width=30):
         self.length = length
         self.width = width
         self.ships = {}
         self.render_string = ""
-        self.hostile_ship_directions = [
-            "north",
-            "south",
-            "east",
-            "west"
-        ]
+        self.hostile_ship_directions = ["north", "south", "east", "west"]
 
     def update_health(self, attack=None):
         if attack:
             for ship_direction in self.hostile_ship_directions:
                 if getattr(attack, ship_direction):
-                    self.ships["center"].hitpoints -= self.ships[ship_direction].attack
+                    self.ships["center"].hitpoints -= self.ships[
+                        ship_direction].attack
             if attack.center is not None:
                 if attack.center == "N":
-                    self.ships["north"].hitpoints -= self.ships["center"].attack
+                    self.ships["north"].hitpoints -= self.ships[
+                        "center"].attack
                 elif attack.center == "S":
-                    self.ships["south"].hitpoints -= self.ships["center"].attack
+                    self.ships["south"].hitpoints -= self.ships[
+                        "center"].attack
                 elif attack.center == "E":
                     self.ships["east"].hitpoints -= self.ships["center"].attack
                 elif attack.center == "W":
@@ -92,8 +80,8 @@ class Board:
         if "north" not in self.hostile_ship_directions:
             north_letter_color = DEAD_COLOR
         ## Line 0
-        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                          SHIP_COLOR) + "".join(
+        self.render_string += "".join([" " for i in range(47)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + "".join(
             [" " for i in range(24)]) + "N" + "\n"
         ## Line 1
         self.render_string += "".join([" " for i in range(45)]) + colored("/", SHIP_COLOR) + "".join(
@@ -140,15 +128,15 @@ class Board:
             [canon_or_board(i) for i in range(SHIP_UPPER)]) + "\n"
         ## Line 8, 9
         if attack and attack.north:
-            self.render_string += colored("".join(
-                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\",
-                                          SMOKE_COLOR) + "\n"
+            self.render_string += colored(
+                "".join([" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" +
+                "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
         if attack and attack.center == "N":
             self.render_string += colored(
-                "".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/",
-                SMOKE_COLOR) + "\n"
+                "".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" +
+                "  \\/" + "  \\/" + "  \\/" + "  \\/", SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
 
@@ -163,11 +151,12 @@ class Board:
         if self.ships["center"].hitpoints == "XXX":
             center_letter_color = DEAD_COLOR
         ## Line 10
-        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                         SHIP_COLOR)
-        self.render_string += "".join([" " for i in range(9)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)])
-        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                         SHIP_COLOR) + " \n"
+        self.render_string += "".join([" " for i in range(4)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR)
+        self.render_string += "".join([" " for i in range(9)]) + "".join(
+            [canon_or_board(i) for i in range(SHIP_UPPER)])
+        self.render_string += "".join([" " for i in range(9)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + " \n"
         ## Line 11
         self.render_string += "".join([" " for i in range(2)]) + colored("/", SHIP_COLOR) + "".join(
             [" " for i in range(12)]) + colored("CTR:  ", west_letter_color) + \
@@ -285,22 +274,23 @@ class Board:
                                       east_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 17
-        self.render_string += "".join([" " for i in range(4)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                         SHIP_COLOR)
-        self.render_string += "".join([" " for i in range(9)]) + "".join([canon_or_board(i) for i in range(SHIP_UPPER)])
-        self.render_string += "".join([" " for i in range(9)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                         SHIP_COLOR) + " \n"
+        self.render_string += "".join([" " for i in range(4)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR)
+        self.render_string += "".join([" " for i in range(9)]) + "".join(
+            [canon_or_board(i) for i in range(SHIP_UPPER)])
+        self.render_string += "".join([" " for i in range(9)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + " \n"
         ## Line 18, 19
         if attack and attack.center == "S":
-            self.render_string += colored("".join(
-                [" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\" + "  /\\",
-                                          SMOKE_COLOR) + "\n"
+            self.render_string += colored(
+                "".join([" " for i in range(51)]) + "/\\" + "  /\\" + "  /\\" +
+                "  /\\" + "  /\\" + "  /\\" + "  /\\", SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
         if attack and attack.south:
-            self.render_string += colored("".join(
-                [" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/" + "  \\/",
-                                          SMOKE_COLOR) + "\n"
+            self.render_string += colored(
+                "".join([" " for i in range(51)]) + "\\/" + "  \\/" + "  \\/" +
+                "  \\/" + "  \\/" + "  \\/" + "  \\/", SMOKE_COLOR) + "\n"
         else:
             self.render_string += "\n"
 
@@ -348,21 +338,13 @@ class Board:
                                       south_letter_color) + "".join([" " for i in range(MAX_NAME_LEN - MAX_NUM_LEN)]) + \
                               "".join([" " for i in range(11)]) + colored("|", SHIP_COLOR) + "\n"
         ## Line 27
-        self.render_string += "".join([" " for i in range(47)]) + colored("".join(["-" for i in range(SHIP_UPPER)]),
-                                                                          SHIP_COLOR) + "\n"
+        self.render_string += "".join([" " for i in range(47)]) + colored(
+            "".join(["-" for i in range(SHIP_UPPER)]), SHIP_COLOR) + "\n"
 
 
 class Ship:
-    def __init__(
-            self,
-            country,
-            captain,
-            people,
-            hitpoints,
-            attack,
-            time_to_hit,
-            cooldown_period
-    ):
+    def __init__(self, country, captain, people, hitpoints, attack,
+                 time_to_hit, cooldown_period):
         self.country = country
         self.captain = captain
         self.people = people
@@ -373,7 +355,12 @@ class Ship:
 
 
 class Attack:
-    def __init__(self, center=None, north=False, south=False, west=False, east=False):
+    def __init__(self,
+                 center=None,
+                 north=False,
+                 south=False,
+                 west=False,
+                 east=False):
         self.center = center
         self.north = north
         self.south = south
@@ -465,8 +452,7 @@ def initialize_board():
         hitpoints=100,
         attack=10,
         time_to_hit=3,
-        cooldown_period=3
-    )
+        cooldown_period=3)
     board.ships["north"] = Ship(
         country="GB",
         captain="Nelson",
@@ -474,8 +460,7 @@ def initialize_board():
         hitpoints=100,
         attack=10,
         time_to_hit=5,
-        cooldown_period=5
-    )
+        cooldown_period=5)
     board.ships["east"] = Ship(
         country="GB",
         captain="Ethan",
@@ -483,8 +468,7 @@ def initialize_board():
         hitpoints=50,
         attack=5,
         time_to_hit=2,
-        cooldown_period=2
-    )
+        cooldown_period=2)
     board.ships["west"] = Ship(
         country="GB",
         captain="William",
@@ -492,8 +476,7 @@ def initialize_board():
         hitpoints=50,
         attack=5,
         time_to_hit=4,
-        cooldown_period=4
-    )
+        cooldown_period=4)
     board.ships["center"] = Ship(
         country="??",
         captain="Barbosa",
@@ -501,8 +484,7 @@ def initialize_board():
         hitpoints=100,
         attack=50,
         time_to_hit=1,
-        cooldown_period=1
-    )
+        cooldown_period=1)
 
     return board
 
@@ -529,12 +511,16 @@ def main():
         for ship_direction in board.hostile_ship_directions:
             if board.ships[ship_direction].time_to_hit == 0:
                 setattr(attack, ship_direction, True)
-                board.ships[ship_direction].time_to_hit = board.ships[ship_direction].cooldown_period
+                board.ships[ship_direction].time_to_hit = board.ships[
+                    ship_direction].cooldown_period
 
         # check if time to hit expired for player
         if first_strike or board.ships["center"].time_to_hit == 0:
-            board.ships["center"].time_to_hit = board.ships["center"].cooldown_period
-            valid_moves = list(map(lambda x: directions_to_moves[x], board.hostile_ship_directions))
+            board.ships["center"].time_to_hit = board.ships[
+                "center"].cooldown_period
+            valid_moves = list(
+                map(lambda x: directions_to_moves[x],
+                    board.hostile_ship_directions))
             if first_strike:
                 print("WARNING: First strike immminent. All opponents hit!")
             my_move = input("What is your move {}?".format(valid_moves))
@@ -543,7 +529,9 @@ def main():
                 my_move = input("What is your move?".format(valid_moves))
             setattr(attack, "center", my_move)
         else:
-            input("You are cooling down! Press any key to progress to next round...")
+            input(
+                "You are cooling down! Press any key to progress to next round..."
+            )
 
         # cancel first strike for the following
         if first_strike:
@@ -552,7 +540,8 @@ def main():
         # determine if any attack happened during this round
         at_least_one_attack = False
         for ship_direction in board.hostile_ship_directions:
-            at_least_one_attack = at_least_one_attack or getattr(attack, ship_direction)
+            at_least_one_attack = at_least_one_attack or getattr(
+                attack, ship_direction)
         if attack.center is not None:
             at_least_one_attack = True
 
@@ -594,7 +583,9 @@ def main():
         if board.ships["center"].hitpoints == "XXX":
             print(die_string())
             print("The sharks ate your flesh!")
-            input("Press any key to try your luck against the royal navy again or Ctrl-C to exit...")
+            input(
+                "Press any key to try your luck against the royal navy again or Ctrl-C to exit..."
+            )
             board = initialize_board()
             first_strike = True
             board.update_render_string()
@@ -603,7 +594,9 @@ def main():
         elif len(board.hostile_ship_directions) == 0:
             print(win_string())
             print("Captain, you killed them all!")
-            input("Press any key to try your luck against the royal navy again or Ctrl-C to exit")
+            input(
+                "Press any key to try your luck against the royal navy again or Ctrl-C to exit"
+            )
             board = initialize_board()
             first_strike = True
             board.update_render_string()

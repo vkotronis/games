@@ -1,0 +1,19 @@
+
+VARS:
+
+HTP_X(K):		Hitpoints of X after K rounds
+ATT_X: 			Attack of X
+RTH_X(K):		Rounds to hit of X after K rounds (RTH_X(K) = RTH_X(0) - (K mod RTH_X(0)))
+CHOICE(K,X): 	1 if C chose to hit X after round K, 0 otherwise
+ALIVE_X(K):		1 if X is alive after K rounds, 0 otherwise
+
+WHERE:
+
+X in {S, E, W, N, C}
+K in {0, 1, 2, ...}
+
+State after N rounds:
+
+HTP_C(N) = HTP_C(0) - Sum (X=S,W,E,N) ATT_X - Sum (k=1,..,N) Sum (X in {S,W,E,N}) (k mod RTH_X(0) == 0) * ALIVE_X(k) * ATT_X
+
+HTP_X(N) = HTP_X(0) - Sum (k=1,..,N) (k mod RTH_C == 0)* CHOICE(k,X) * ATT_C, X in {S, E, W, N}

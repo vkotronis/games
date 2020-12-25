@@ -493,7 +493,7 @@ def initialize_board():
         captain="Sparrow",
         people=60,
         hitpoints=200,
-        attack=20,
+        attack=30,
         time_to_hit=2,
         cooldown_period=2)
 

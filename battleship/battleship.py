@@ -2,6 +2,8 @@
 import os
 from termcolor import colored
 import time
+from playsound import playsound
+import multiprocessing as mp
 
 # https://pypi.org/project/termcolor/
 # https://textart.io/art/tag/pirate/1
@@ -492,12 +494,19 @@ def initialize_board():
         country="??",
         captain="Sparrow",
         people=60,
-        hitpoints=200,
+        hitpoints=230,
         attack=30,
         time_to_hit=2,
         cooldown_period=2)
 
     return board
+
+
+def cannon_sound():
+    playsound("sounds/Cannon+2.mp3")
+
+def explosion_sound():
+    playsound("sounds/Explosion+6.mp3")
 
 
 def main():
@@ -559,6 +568,7 @@ def main():
 
         # render attack moves
         if at_least_one_attack:
+            sps = set()
             for i in range(3):
                 if i % 2 == 0:
                     board.update_render_string(attack)
@@ -566,7 +576,13 @@ def main():
                     board.update_render_string()
                 os.system("clear")
                 print(board.render_string)
+                sp = mp.Process(target=cannon_sound)
+                sps.add(sp)
+                sp.start()
                 time.sleep(1)
+            for sp in sps:
+                sp.join()
+            sps = set()
 
             # now perform health updates
             board.update_health(attack)
@@ -580,11 +596,22 @@ def main():
                     dead_ship_directions.add(ship_direction)
             for ship_direction in dead_ship_directions:
                 board.hostile_ship_directions.remove(ship_direction)
+                sp = mp.Process(target=explosion_sound)
+                sps.add(sp)
+                sp.start()
+                time.sleep(1)
             if board.ships["center"].hitpoints <= 0:
                 board.ships["center"].people = "XXX"
                 board.ships["center"].hitpoints = "XXX"
                 board.ships["center"].attack = "XXX"
                 board.ships["center"].time_to_hit = "XXX"
+                sp = mp.Process(target=explosion_sound)
+                sps.add(sp)
+                sp.start()
+                time.sleep(1)
+            for sp in sps:
+                sp.join()
+            sps = set()
 
         # render new state
         board.update_render_string()
